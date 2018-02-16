@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>LifeBarBuddy</id>
+		<version>1.0.0</version>
+		<title>LifeBarBuddy</title>
+		<authors>dmanning23</authors>
+		<owners>dmanning23</owners>
+		<projectUrl>https://github.com/dmanning23/LifeBarBuddy</projectUrl>
+		<licenseUrl>https://github.com/dmanning23/LifeBarBuddy/blob/master/LICENSE.txt</licenseUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>MonoGame library for rendering meters like life and energy bars</description>
+		<releaseNotes />
+		<copyright>Copyright 2016</copyright>
+		<tags>pcl, windows phone, winphone, android, ios, windows universal, monogame</tags>
+		<dependencies>
+
+			<!--Xamarin.Android-->
+			<group targetFramework="MonoAndroid10">
+				<dependency id="MonoGame.Framework.Android" version="3.6"/>
+				<dependency id="FilenameBuddy" version="1.0.2"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+			<!--Xamarin.iOS Unified-->
+			<group targetFramework="Xamarin.iOS10">
+				<dependency id="MonoGame.Framework.iOS" version="3.6"/>
+				<dependency id="FilenameBuddy" version="1.0.2"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+			<!--Win Universal-->
+			<group targetFramework="uap10.0">
+				<dependency id="MonoGame.Framework.WindowsUniversal" version="3.6"/>
+				<dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.1"/>
+				<dependency id="FilenameBuddy" version="1.0.2"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+			<group targetFramework="net451">
+				<dependency id="MonoGame.Framework.WindowsDX" version="3.6"/>
+				<dependency id="FilenameBuddy" version="1.0.2"/>
+				<dependency id="GameTimer" version="1.0"/>
+			</group>
+
+		</dependencies>
+	</metadata>
+	<files>
+
+		<file src="..\Content\AnimationBuddyShader.fx" target="content\Content\AnimationBuddyShader.fx" />
+
+		<!--Xamarin.Android-->
+		<file src="LifeBarBuddy.Android\bin\Release\LifeBarBuddy.Android.pdb" target="lib\MonoAndroid10\LifeBarBuddy.Android.pdb" />
+		<file src="LifeBarBuddy.Android\bin\Release\LifeBarBuddy.Android.dll" target="lib\MonoAndroid10\LifeBarBuddy.Android.dll" />
+
+		<!--Xamarin.iOS Unified-->
+		<file src="LifeBarBuddy.iOS\bin\Release\LifeBarBuddy.iOS.pdb" target="lib\Xamarin.iOS10\LifeBarBuddy.iOS.pdb" />
+		<file src="LifeBarBuddy.iOS\bin\Release\LifeBarBuddy.iOS.dll" target="lib\Xamarin.iOS10\LifeBarBuddy.iOS.dll" />
+
+		<!--Windows Universal-->
+		<file src="LifeBarBuddy.WindowsUniversal\bin\Release\LifeBarBuddy.WindowsUniversal.pdb" target="lib\uap10.0\LifeBarBuddy.WindowsUniversal.pdb" />
+		<file src="LifeBarBuddy.WindowsUniversal\bin\Release\LifeBarBuddy.WindowsUniversal.dll" target="lib\uap10.0\LifeBarBuddy.WindowsUniversal.dll" />
+
+		<!--WindowsDX-->
+		<file src="LifeBarBuddy.WindowsDX\bin\Release\LifeBarBuddy.WindowsDX.pdb" target="lib\net451\LifeBarBuddy.WindowsDX.pdb" />
+		<file src="LifeBarBuddy.WindowsDX\bin\Release\LifeBarBuddy.WindowsDX.dll" target="lib\net451\LifeBarBuddy.WindowsDX.dll" />
+
+	</files>
+</package>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>317dc05b-7d06-4e96-8786-c5d12251d292</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>LifeBarBuddy.SharedProject</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ILifeBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ISuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMeterRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IStockSuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LifeBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MeterRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StockSuperBar.cs" />
+  </ItemGroup>
+</Project>

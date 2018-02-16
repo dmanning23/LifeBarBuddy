@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LifeBarBuddy.SharedProject", "LifeBarBuddy.SharedProject\LifeBarBuddy.SharedProject.shproj", "{317DC05B-7D06-4E96-8786-C5D12251D292}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeBarBuddy.WindowsDX", "LifeBarBuddy.WindowsDX\LifeBarBuddy.WindowsDX.csproj", "{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60D0671B-B187-4F65-AFCF-4D63E76F410F}"
+	ProjectSection(SolutionItems) = preProject
+		buildNugetPackages.ps1 = buildNugetPackages.ps1
+		LifeBarBuddy.nuspec = LifeBarBuddy.nuspec
+		MeterShader.fx = MeterShader.fx
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		LifeBarBuddy.SharedProject\LifeBarBuddy.SharedProject.projitems*{317dc05b-7d06-4e96-8786-c5d12251d292}*SharedItemsImports = 13
+		LifeBarBuddy.SharedProject\LifeBarBuddy.SharedProject.projitems*{d70ffdb5-646e-44c1-9190-6f9f3744fffe}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8C2BD6E-59D3-4647-AF57-0059E8F9FEDA}
+	EndGlobalSection
+EndGlobal
