@@ -77,7 +77,7 @@ namespace LifeBarBuddy
 
 		#region Methods
 
-		public SuperBar(float maxEnergy, ContentManager content, Filename meterImage, Filename alphaMaskImage)
+		public SuperBar(float maxEnergy, ContentManager content, Filename borderImage, Filename meterImage, Filename alphaMaskImage)
 		{
 			EnergyClock = new GameClock();
 			AddEnergyTimer = new CountdownTimer();
@@ -99,7 +99,7 @@ namespace LifeBarBuddy
 			EnergyFullColorSpeed = 8f;
 			EnergyFullPulsateSpeed = 15f;
 
-			LoadContent(content, meterImage, alphaMaskImage);
+			LoadContent(content, borderImage, meterImage, alphaMaskImage);
 		}
 
 		public void Reset()

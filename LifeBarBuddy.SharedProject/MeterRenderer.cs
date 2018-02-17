@@ -37,16 +37,10 @@ namespace LifeBarBuddy
 				translation);
 		}
 
-		public void DrawMeter(IMeter meter, SpriteBatch spritebatch, Rectangle rect, float start, float end, Vector2 scale, Vector2 offset, Color color)
+		public void DrawBorder(IMeter meter, SpriteBatch spritebatch, Rectangle rect, Vector2 scale, Vector2 offset, Color color)
 		{
-			if (start == end)
-			{
-				return;
-			}
-
-			_effectsParams["AlphaMaskTexture"].SetValue(meter.AlphaMaskImage);
-			_effectsParams["Start"].SetValue(start);
-			_effectsParams["End"].SetValue(end);
+			_effectsParams["BorderTexture"].SetValue(meter.BorderImage);
+			_effectsParams["HasBorder"].SetValue(true);
 
 			//update the position by adding the scale and offset
 			var scaleOffset = new Vector2(((rect.Width - (rect.Width * scale.X)) * .5f),
@@ -58,7 +52,31 @@ namespace LifeBarBuddy
 			rect.Height = (int)(rect.Height * scale.Y);
 
 			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+		}
 
+		public void DrawMeter(IMeter meter, SpriteBatch spritebatch, Rectangle rect, float start, float end, Vector2 scale, Vector2 offset, Color color)
+		{
+			if (start == end)
+			{
+				return;
+			}
+
+			_effectsParams["BorderTexture"].SetValue(meter.BorderImage);
+			_effectsParams["AlphaMaskTexture"].SetValue(meter.AlphaMaskImage);
+			_effectsParams["Start"].SetValue(start);
+			_effectsParams["End"].SetValue(end);
+			_effectsParams["HasBorder"].SetValue(false);
+
+			//update the position by adding the scale and offset
+			var scaleOffset = new Vector2(((rect.Width - (rect.Width * scale.X)) * .5f),
+				((rect.Height - (rect.Height * scale.Y)) * .5f));
+
+			rect.X = (int)(scaleOffset.X + (rect.X + offset.X));
+			rect.Y = (int)(scaleOffset.Y + (rect.Y + offset.Y));
+			rect.Width = (int)(rect.Width * scale.X);
+			rect.Height = (int)(rect.Height * scale.Y);
+
+			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 		}
 
 		#endregion //Methods

@@ -1,7 +1,4 @@
-﻿using FilenameBuddy;
-using GameTimer;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using GameTimer;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LifeBarBuddy
@@ -9,6 +6,8 @@ namespace LifeBarBuddy
 	public interface IMeter
 	{
 		bool HorizontalMeter { get; set; }
+
+		Texture2D BorderImage { get; set; }
 
 		Texture2D MeterImage { get; set; }
 

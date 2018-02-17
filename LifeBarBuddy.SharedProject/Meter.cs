@@ -14,6 +14,8 @@ namespace LifeBarBuddy
 
 		public bool HorizontalMeter { get; set; }
 
+		public Texture2D BorderImage { get; set; }
+
 		public Texture2D MeterImage { get; set; }
 
 		public Texture2D AlphaMaskImage { get; set; }
@@ -35,8 +37,9 @@ namespace LifeBarBuddy
 			Clock.Update(time);
 		}
 
-		protected void LoadContent(ContentManager content, Filename meterImage, Filename alphaMaskImage)
+		protected void LoadContent(ContentManager content, Filename borderImage, Filename meterImage, Filename alphaMaskImage)
 		{
+			BorderImage = content.Load<Texture2D>(borderImage.GetRelPathFileNoExt());
 			MeterImage = content.Load<Texture2D>(meterImage.GetRelPathFileNoExt());
 			AlphaMaskImage = content.Load<Texture2D>(alphaMaskImage.GetRelPathFileNoExt());
 		}
