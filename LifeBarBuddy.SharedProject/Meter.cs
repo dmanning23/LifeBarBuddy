@@ -66,7 +66,7 @@ namespace LifeBarBuddy
 		private float Pulsate(float currentTime, float size)
 		{
 			//Pulsate the size of the text, bump it up so it starts at 1
-			return (size * (float)(Math.Sin(currentTime))) + 1 + size;
+			return (size * (float)(Math.Cos(currentTime))) + 1 + size;
 		}
 
 		protected Vector2 OffsetVector(float currentTime, float offsetAmount)
@@ -88,6 +88,36 @@ namespace LifeBarBuddy
 			//get the ACTUAL lerped color of this letter
 			var remainder = (float)(currentTime - (int)currentTime);
 			return Color.Lerp(colors[index], colors[nextIndex], remainder);
+		}
+
+		protected Vector2 LerpScale(CountdownTimer currentTime, float size, Rectangle rect)
+		{
+			var scale = GetLerpScale(currentTime, size);
+
+			//which side needs to pulsate less?
+			if (rect.Height < rect.Width)
+			{
+				var aspect = ((float)rect.Height / (float)rect.Width);
+				var halfScale = GetLerpScale(currentTime, 1 + (size * aspect));
+				return new Vector2(halfScale, scale);
+			}
+			else
+			{
+				var halfScale = GetLerpScale(currentTime, size * (rect.Width / rect.Height));
+				return new Vector2(scale, halfScale);
+			}
+		}
+
+		private float GetLerpScale(CountdownTimer currentTime, float size)
+		{
+			return 1f + ((size - 1f) * (1f - currentTime.Lerp));
+		}
+
+		protected Color FadeColor(CountdownTimer currentTime, Color startColor)
+		{
+			var shadow = startColor;
+			shadow.A =(byte)((float)startColor.A * currentTime.Lerp);
+			return shadow;
 		}
 
 		protected float ConvertToAlpha(float start, float end, float current)

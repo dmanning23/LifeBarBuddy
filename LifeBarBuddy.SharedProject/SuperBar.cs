@@ -57,11 +57,24 @@ namespace LifeBarBuddy
 		public float EnergyFullColorSpeed { get; set; }
 		public float EnergyFullPulsateSpeed { get; set; }
 
+
+		public List<Color> UseEnergyColor { get; set; }
+		public List<Color> UseEnergyDepletedColor { get; set; }
+		public Color UseEnergyShadowColor { get; set; }
+		public float UseEnergyShadowTimeDelta { get; set; }
+		public float UseEnergyShadowTargetScale { get; set; }
+		public float UseEnergyTimeDelta { get; set; }
+		public float UseEnergyColorSpeed { get; set; }
+		public float UseEnergyDepletedColorSpeed { get; set; }
+
 		private GameClock EnergyClock { get; set; }
 
 		private CountdownTimer AddEnergyTimer { get; set; }
 
 		private GameClock EnergyFullClock { get; set; }
+
+		private CountdownTimer UseEnergyTimer { get; set; }
+		private CountdownTimer UseEnergyShadowTimer { get; set; }
 
 		private float PreAddAmount { get; set; }
 
@@ -82,6 +95,8 @@ namespace LifeBarBuddy
 			EnergyClock = new GameClock();
 			AddEnergyTimer = new CountdownTimer();
 			EnergyFullClock = new GameClock();
+			UseEnergyTimer = new CountdownTimer();
+			UseEnergyShadowTimer = new CountdownTimer();
 
 			MaxEnergy = maxEnergy;
 			CurrentEnergy = 0f;
@@ -99,6 +114,15 @@ namespace LifeBarBuddy
 			EnergyFullColorSpeed = 8f;
 			EnergyFullPulsateSpeed = 15f;
 
+			UseEnergyColor = new List<Color> { Color.DarkRed, Color.DarkBlue };
+			UseEnergyDepletedColor = new List<Color> { EmptyEnergyColor, Color.LightBlue };
+			UseEnergyShadowColor = Color.LightBlue;
+			UseEnergyShadowTimeDelta = 0.5f;
+			UseEnergyShadowTargetScale = 3f;
+			UseEnergyTimeDelta = 1.5f;
+			UseEnergyColorSpeed = 8f;
+			UseEnergyDepletedColorSpeed = 12f;
+
 			LoadContent(content, borderImage, meterImage, alphaMaskImage);
 		}
 
@@ -108,6 +132,8 @@ namespace LifeBarBuddy
 			AddEnergyTimer.Stop();
 			EnergyFullClock.Stop();
 			CurrentEnergy = 0f;
+			UseEnergyTimer.Stop();
+			UseEnergyShadowTimer.Stop();
 		}
 
 		public override void Update(GameClock time)
@@ -118,6 +144,8 @@ namespace LifeBarBuddy
 			EnergyClock.Update(time);
 			AddEnergyTimer.Update(time);
 			EnergyFullClock.Update(time);
+			UseEnergyTimer.Update(time);
+			UseEnergyShadowTimer.Update(time);
 
 			//check if we need to change "full energy" mode
 			if (EnergyFullClock.Paused && IsFullEnergyMode)
@@ -146,11 +174,28 @@ namespace LifeBarBuddy
 			AddEnergyTimer.Start(AddEnergyTimeDelta);
 		}
 
+		public void UseEnergy()
+		{
+			UseEnergyTimer.Start(UseEnergyTimeDelta);
+			UseEnergyShadowTimer.Start(UseEnergyShadowTimeDelta);
+		}
+
 		public void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch, Rectangle position)
 		{
 			CurrentEnergy = currentEnergy;
 
-			if (AddEnergyTimer.HasTimeRemaining)
+			if (UseEnergyTimer.HasTimeRemaining)
+			{
+				var spentEnergy = MaxEnergy * UseEnergyTimer.Lerp;
+				var spentEnergyAlpha = ConvertToAlpha(0, MaxEnergy, spentEnergy);
+
+				//draw the depleted bar
+				meterRenderer.DrawMeter(this, spritebatch, position, spentEnergyAlpha, 1f, Vector2.One, Vector2.Zero, GetUseEnergyDepletedColor());
+
+				//draw the energy bar
+				meterRenderer.DrawMeter(this, spritebatch, position, 0f, spentEnergyAlpha, Vector2.One, Vector2.Zero, GetUseEnergyColor());
+			}
+			else if (AddEnergyTimer.HasTimeRemaining)
 			{
 				//If the character is being healed, draw in heal mode
 
@@ -197,6 +242,14 @@ namespace LifeBarBuddy
 				//draw the health bar
 				meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetEnergyColor());
 			}
+
+			//draw the shadow if time is left
+			if (UseEnergyShadowTimer.HasTimeRemaining)
+			{
+				var scale = LerpScale(UseEnergyShadowTimer, UseEnergyShadowTargetScale, position);
+				var color = GetUseEnergyShadowColor();
+				meterRenderer.DrawMeter(this, spritebatch, position, 0f, 1f, scale, Vector2.Zero, color);
+			}
 		}
 
 		private Color GetEnergyColor()
@@ -226,6 +279,21 @@ namespace LifeBarBuddy
 		private Color GetEnergyFullColor()
 		{
 			return LerpColors(EnergyFullClock.CurrentTime * EnergyFullColorSpeed, EnergyFullColor);
+		}
+
+		private Color GetUseEnergyColor()
+		{
+			return LerpColors(UseEnergyTimer.CurrentTime * UseEnergyColorSpeed, UseEnergyColor);
+		}
+
+		private Color GetUseEnergyDepletedColor()
+		{
+			return LerpColors(UseEnergyTimer.CurrentTime * UseEnergyDepletedColorSpeed, UseEnergyDepletedColor);
+		}
+
+		private Color GetUseEnergyShadowColor()
+		{
+			return FadeColor(UseEnergyShadowTimer, UseEnergyShadowColor);
 		}
 
 		#endregion //Methods

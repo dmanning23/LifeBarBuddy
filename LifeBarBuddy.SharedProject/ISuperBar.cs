@@ -42,9 +42,27 @@ namespace LifeBarBuddy
 
 		float EnergyFullPulsateSpeed { get; set; }
 
+		List<Color> UseEnergyColor { get; set; }
+
+		List<Color> UseEnergyDepletedColor { get; set; }
+
+		Color UseEnergyShadowColor { get; set; }
+
+		float UseEnergyShadowTimeDelta { get; set; }
+
+		float UseEnergyShadowTargetScale { get; set; }
+
+		float UseEnergyTimeDelta { get; set; }
+
+		float UseEnergyColorSpeed { get; set; }
+
+		float UseEnergyDepletedColorSpeed { get; set; }
+
 		void Reset();
 
 		void AddEnergy(float energy);
+
+		void UseEnergy();
 
 		void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch, Rectangle position);
 
