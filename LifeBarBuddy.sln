@@ -14,9 +14,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MeterShader.fx = MeterShader.fx
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeBarBuddy.iOS", "LifeBarBuddy.iOS\LifeBarBuddy.iOS.csproj", "{3735890A-603F-4BB8-9039-7E7472D8FB9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeBarBuddy.Android", "LifeBarBuddy.Android\LifeBarBuddy.Android.csproj", "{280B0A33-1476-4D5F-A69E-404C6D82FAD3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		LifeBarBuddy.SharedProject\LifeBarBuddy.SharedProject.projitems*{280b0a33-1476-4d5f-a69e-404c6d82fad3}*SharedItemsImports = 4
 		LifeBarBuddy.SharedProject\LifeBarBuddy.SharedProject.projitems*{317dc05b-7d06-4e96-8786-c5d12251d292}*SharedItemsImports = 13
+		LifeBarBuddy.SharedProject\LifeBarBuddy.SharedProject.projitems*{3735890a-603f-4bb8-9039-7e7472d8fb9b}*SharedItemsImports = 4
 		LifeBarBuddy.SharedProject\LifeBarBuddy.SharedProject.projitems*{d70ffdb5-646e-44c1-9190-6f9f3744fffe}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +34,14 @@ Global
 		{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D70FFDB5-646E-44C1-9190-6F9F3744FFFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3735890A-603F-4BB8-9039-7E7472D8FB9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3735890A-603F-4BB8-9039-7E7472D8FB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3735890A-603F-4BB8-9039-7E7472D8FB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3735890A-603F-4BB8-9039-7E7472D8FB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280B0A33-1476-4D5F-A69E-404C6D82FAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280B0A33-1476-4D5F-A69E-404C6D82FAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280B0A33-1476-4D5F-A69E-404C6D82FAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280B0A33-1476-4D5F-A69E-404C6D82FAD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

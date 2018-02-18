@@ -29,13 +29,13 @@
 				<dependency id="GameTimer" version="1.0"/>
 			</group>
 
-			<!--Win Universal-->
+			<!--Win Universal--><!--
 			<group targetFramework="uap10.0">
 				<dependency id="MonoGame.Framework.WindowsUniversal" version="3.6"/>
 				<dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.1"/>
 				<dependency id="FilenameBuddy" version="1.0.2"/>
 				<dependency id="GameTimer" version="1.0"/>
-			</group>
+			</group>-->
 
 			<group targetFramework="net451">
 				<dependency id="MonoGame.Framework.WindowsDX" version="3.6"/>
@@ -47,7 +47,7 @@
 	</metadata>
 	<files>
 
-		<file src="..\Content\AnimationBuddyShader.fx" target="content\Content\AnimationBuddyShader.fx" />
+		<file src="MeterShader.fx" target="content\Content\MeterShader.fx" />
 
 		<!--Xamarin.Android-->
 		<file src="LifeBarBuddy.Android\bin\Release\LifeBarBuddy.Android.pdb" target="lib\MonoAndroid10\LifeBarBuddy.Android.pdb" />
@@ -57,9 +57,9 @@
 		<file src="LifeBarBuddy.iOS\bin\Release\LifeBarBuddy.iOS.pdb" target="lib\Xamarin.iOS10\LifeBarBuddy.iOS.pdb" />
 		<file src="LifeBarBuddy.iOS\bin\Release\LifeBarBuddy.iOS.dll" target="lib\Xamarin.iOS10\LifeBarBuddy.iOS.dll" />
 
-		<!--Windows Universal-->
+		<!--Windows Universal--><!--
 		<file src="LifeBarBuddy.WindowsUniversal\bin\Release\LifeBarBuddy.WindowsUniversal.pdb" target="lib\uap10.0\LifeBarBuddy.WindowsUniversal.pdb" />
-		<file src="LifeBarBuddy.WindowsUniversal\bin\Release\LifeBarBuddy.WindowsUniversal.dll" target="lib\uap10.0\LifeBarBuddy.WindowsUniversal.dll" />
+		<file src="LifeBarBuddy.WindowsUniversal\bin\Release\LifeBarBuddy.WindowsUniversal.dll" target="lib\uap10.0\LifeBarBuddy.WindowsUniversal.dll" />-->
 
 		<!--WindowsDX-->
 		<file src="LifeBarBuddy.WindowsDX\bin\Release\LifeBarBuddy.WindowsDX.pdb" target="lib\net451\LifeBarBuddy.WindowsDX.pdb" />

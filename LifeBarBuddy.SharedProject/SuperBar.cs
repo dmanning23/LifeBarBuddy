@@ -184,6 +184,8 @@ namespace LifeBarBuddy
 		{
 			CurrentEnergy = currentEnergy;
 
+			meterRenderer.DrawBorder(this, spritebatch, position, Vector2.One, Vector2.Zero, Color.White);
+
 			if (UseEnergyTimer.HasTimeRemaining)
 			{
 				var spentEnergy = MaxEnergy * UseEnergyTimer.Lerp;
