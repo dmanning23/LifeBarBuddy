@@ -13,59 +13,59 @@ Check out the example project at [LifeBarBuddySample](https://github.com/dmannin
 First create an instance of the type of meter you'd like. There are currently two built-in types: basic LifeBar and SuperBar (a single-stock super gauge similar to Super Street Fighter 2 Turbo)
 ```
 public override void LoadContent()
-		{
-			base.LoadContent();
+{
+	base.LoadContent();
 
-			//create the lifebar
-			lifeBar = new LifeBar(maxHP, Content, "lifebarBorder.png", "lifebar.png", "lifebarGradient.png");
+	//create the lifebar
+	lifeBar = new LifeBar(maxHP, Content, "lifebarBorder.png", "lifebar.png", "lifebarGradient.png");
       
-      //create the MeterRenderer object, which is used to do the rendering for all the meters in the game
-      meterRenderer = new MeterRenderer(Content, new Filename("MeterShader.fx"));
+	//create the MeterRenderer object, which is used to do the rendering for all the meters in the game
+	meterRenderer = new MeterRenderer(Content, new Filename("MeterShader.fx"));
       
-      //Load the rest of your game assets...
-    }
+	//Load the rest of your game assets...
+}
 ```
 
 The object instance needs to be updated each frame with the current time:
 ```
 public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
-		{
-			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+{
+	base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-			lifeBar.Update(gameTime);
+	lifeBar.Update(gameTime);
       
-      //Update the rest of your game objects...
-    }
+	//Update the rest of your game objects...
+}
 ````
 
 Call the correct methods to indicate to the meter when events occur:
 ```
 private void Heal(object sender, EventArgs e)
-		{
-			var damage = 10f;
-			hitPoints += damage;
-			lifeBar.Heal(damage);
-		}
+{
+	var damage = 10f;
+	hitPoints += damage;
+	lifeBar.Heal(damage);
+}
 
-		private void TakeDamage(object sender, EventArgs e)
-		{
-			var damage = 5f;
-			hitPoints -= damage;
-			lifeBar.AddDamage(damage);
-		}
+private void TakeDamage(object sender, EventArgs e)
+{
+	var damage = 5f;
+	hitPoints -= damage;
+	lifeBar.AddDamage(damage);
+}
 ```
 
 Lastly, the meter itself is stateless, so make sure you pass the correct current values in the Draw method:
 ```
 public override void Draw(GameTime gameTime)
-		{
-			base.Draw(gameTime);
+{
+	base.Draw(gameTime);
       
-      //Draw all your game objects here...
+	//Draw all your game objects here...
 
-			//draw the meters on top once everything else has finished rendering
-			meterRenderer.SpriteBatchBegin(ScreenManager.SpriteBatch, Resolution.TransformationMatrix());
-			lifeBar.Draw(hitPoints, meterRenderer, ScreenManager.SpriteBatch, lifebarRect);
-			ScreenManager.SpriteBatch.End();
-		}
+	//draw the meters on top once everything else has finished rendering
+	meterRenderer.SpriteBatchBegin(ScreenManager.SpriteBatch, Resolution.TransformationMatrix());
+	lifeBar.Draw(hitPoints, meterRenderer, ScreenManager.SpriteBatch, lifebarRect);
+	ScreenManager.SpriteBatch.End();
+}
 ```
