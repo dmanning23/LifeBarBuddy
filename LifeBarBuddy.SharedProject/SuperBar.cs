@@ -90,7 +90,7 @@ namespace LifeBarBuddy
 
 		#region Methods
 
-		public SuperBar(float maxEnergy, ContentManager content, Filename borderImage, Filename meterImage, Filename alphaMaskImage)
+		public SuperBar(float maxEnergy, ContentManager content, string borderImage, string meterImage, string alphaMaskImage)
 		{
 			EnergyClock = new GameClock();
 			AddEnergyTimer = new CountdownTimer();
@@ -123,7 +123,7 @@ namespace LifeBarBuddy
 			UseEnergyColorSpeed = 8f;
 			UseEnergyDepletedColorSpeed = 12f;
 
-			LoadContent(content, borderImage, meterImage, alphaMaskImage);
+			LoadContent(content, new Filename(borderImage), new Filename(meterImage), new Filename(alphaMaskImage));
 		}
 
 		public void Reset()
@@ -136,7 +136,7 @@ namespace LifeBarBuddy
 			UseEnergyShadowTimer.Stop();
 		}
 
-		public override void Update(GameClock time)
+		public override void Update(GameTime time)
 		{
 			base.Update(time);
 

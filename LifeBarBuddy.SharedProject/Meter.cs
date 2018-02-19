@@ -32,7 +32,7 @@ namespace LifeBarBuddy
 			Clock = new GameClock();
 		}
 
-		public virtual void Update(GameClock time)
+		public virtual void Update(GameTime time)
 		{
 			Clock.Update(time);
 		}

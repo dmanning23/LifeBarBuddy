@@ -89,7 +89,7 @@ namespace LifeBarBuddy
 
 		#region Methods
 
-		public LifeBar(float maxHP, ContentManager content, Filename borderImage, Filename meterImage, Filename alphaMaskImage)
+		public LifeBar(float maxHP, ContentManager content, string borderImage, string meterImage, string alphaMaskImage)
 		{
 			HealthClock = new GameClock();
 			HitTimer = new CountdownTimer();
@@ -121,7 +121,7 @@ namespace LifeBarBuddy
 			NearDeathColorSpeed = 10f;
 			NearDeathColors = new List<Color> { Color.Red, new Color (0.4f, 0f,0f) };
 
-			LoadContent(content, borderImage, meterImage, alphaMaskImage);
+			LoadContent(content, new Filename(borderImage), new Filename(meterImage), new Filename(alphaMaskImage));
 		}
 
 		public void Reset()
@@ -133,7 +133,7 @@ namespace LifeBarBuddy
 			CurrentHP = MaxHP;
 		}
 
-		public override void Update(GameClock time)
+		public override void Update(GameTime time)
 		{
 			base.Update(time);
 

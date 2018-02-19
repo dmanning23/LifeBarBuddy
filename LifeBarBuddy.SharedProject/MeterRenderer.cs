@@ -20,9 +20,10 @@ namespace LifeBarBuddy
 
 		#region Methods
 
-		public MeterRenderer(ContentManager content, Filename shaderFile)
+		public MeterRenderer(ContentManager content, string shaderFile)
 		{
-			_meterEffect = content.Load<Effect>(shaderFile.GetRelPathFileNoExt());
+			var shaderFilename = new Filename(shaderFile);
+			_meterEffect = content.Load<Effect>(shaderFilename.GetRelPathFileNoExt());
 			_effectsParams = _meterEffect.Parameters;
 		}
 

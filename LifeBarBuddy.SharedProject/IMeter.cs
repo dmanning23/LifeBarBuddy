@@ -1,4 +1,5 @@
 ﻿using GameTimer;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LifeBarBuddy
@@ -13,6 +14,6 @@ namespace LifeBarBuddy
 
 		Texture2D AlphaMaskImage { get; set; }
 
-		void Update(GameClock time);
+		void Update(GameTime time);
 	}
 }
