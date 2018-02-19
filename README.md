@@ -8,6 +8,8 @@ How it works is create 3 images, the background, a mask for the meter, and an al
 
 To use this library, install from the [Nuget package](https://www.nuget.org/packages/LifeBarBuddy/1.0.0)
 
+It will also add the MeterShader.fx file to the Content directory of your project. Make sure this gets added to you MonoGame content .mgcb project!
+
 Check out the example project at [LifeBarBuddySample](https://github.com/dmanning23/LifeBarBuddySample)
 
 First create an instance of the type of meter you'd like. There are currently two built-in types: basic LifeBar and SuperBar (a single-stock super gauge similar to Super Street Fighter 2 Turbo)
