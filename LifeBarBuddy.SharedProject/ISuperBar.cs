@@ -58,13 +58,17 @@ namespace LifeBarBuddy
 
 		float UseEnergyDepletedColorSpeed { get; set; }
 
+		float UseEnergyShakeAmount { get; set; }
+
+		float UseEnergyShakeSpeed { get; set; }
+
 		void Reset();
 
 		void AddEnergy(float energy);
 
 		void UseEnergy();
 
-		void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch, Rectangle position);
+		void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch);
 
 	}
 }

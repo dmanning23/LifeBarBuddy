@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LifeBarBuddy
 {
@@ -57,7 +56,6 @@ namespace LifeBarBuddy
 		public float EnergyFullColorSpeed { get; set; }
 		public float EnergyFullPulsateSpeed { get; set; }
 
-
 		public List<Color> UseEnergyColor { get; set; }
 		public List<Color> UseEnergyDepletedColor { get; set; }
 		public Color UseEnergyShadowColor { get; set; }
@@ -66,6 +64,8 @@ namespace LifeBarBuddy
 		public float UseEnergyTimeDelta { get; set; }
 		public float UseEnergyColorSpeed { get; set; }
 		public float UseEnergyDepletedColorSpeed { get; set; }
+		public float UseEnergyShakeAmount { get; set; }
+		public float UseEnergyShakeSpeed { get; set; }
 
 		private GameClock EnergyClock { get; set; }
 
@@ -90,7 +90,8 @@ namespace LifeBarBuddy
 
 		#region Methods
 
-		public SuperBar(float maxEnergy, ContentManager content, string borderImage, string meterImage, string alphaMaskImage)
+		public SuperBar(float maxEnergy, ContentManager content, string borderImage, string meterImage, string alphaMaskImage, Rectangle position) : 
+			base(position)
 		{
 			EnergyClock = new GameClock();
 			AddEnergyTimer = new CountdownTimer();
@@ -122,8 +123,10 @@ namespace LifeBarBuddy
 			UseEnergyTimeDelta = 1.5f;
 			UseEnergyColorSpeed = 8f;
 			UseEnergyDepletedColorSpeed = 12f;
+			UseEnergyShakeAmount = 4f;
+			UseEnergyShakeSpeed = 40f;
 
-			LoadContent(content, new Filename(borderImage), new Filename(meterImage), new Filename(alphaMaskImage));
+		LoadContent(content, new Filename(borderImage), new Filename(meterImage), new Filename(alphaMaskImage));
 		}
 
 		public void Reset()
@@ -146,7 +149,24 @@ namespace LifeBarBuddy
 			EnergyFullClock.Update(time);
 			UseEnergyTimer.Update(time);
 			UseEnergyShadowTimer.Update(time);
+			UpdateEnergyFull();
+		}
 
+		public override void Update(GameClock time)
+		{
+			base.Update(time);
+
+			//update all timers
+			EnergyClock.Update(time);
+			AddEnergyTimer.Update(time);
+			EnergyFullClock.Update(time);
+			UseEnergyTimer.Update(time);
+			UseEnergyShadowTimer.Update(time);
+			UpdateEnergyFull();
+		}
+
+		private void UpdateEnergyFull()
+		{
 			//check if we need to change "full energy" mode
 			if (EnergyFullClock.Paused && IsFullEnergyMode)
 			{
@@ -180,11 +200,18 @@ namespace LifeBarBuddy
 			UseEnergyShadowTimer.Start(UseEnergyShadowTimeDelta);
 		}
 
-		public void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch, Rectangle position)
+		public void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch)
 		{
 			CurrentEnergy = currentEnergy;
 
-			meterRenderer.DrawBorder(this, spritebatch, position, Vector2.One, Vector2.Zero, Color.White);
+			//how much offset to add to energy bar?
+			Vector2 offset = Vector2.Zero;
+			if (UseEnergyTimer.HasTimeRemaining)
+			{
+				offset = OffsetVector(UseEnergyTimer.CurrentTime * UseEnergyShakeSpeed, UseEnergyShakeAmount);
+			}
+
+			meterRenderer.DrawBorder(this, spritebatch, Position, Vector2.One, offset, Color.White);
 
 			if (UseEnergyTimer.HasTimeRemaining)
 			{
@@ -192,44 +219,42 @@ namespace LifeBarBuddy
 				var spentEnergyAlpha = ConvertToAlpha(0, MaxEnergy, spentEnergy);
 
 				//draw the depleted bar
-				meterRenderer.DrawMeter(this, spritebatch, position, spentEnergyAlpha, 1f, Vector2.One, Vector2.Zero, GetUseEnergyDepletedColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, spentEnergyAlpha, 1f, Vector2.One, offset, GetUseEnergyDepletedColor());
 
 				//draw the energy bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, spentEnergyAlpha, Vector2.One, Vector2.Zero, GetUseEnergyColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, spentEnergyAlpha, Vector2.One, offset, GetUseEnergyColor());
 			}
 			else if (AddEnergyTimer.HasTimeRemaining)
 			{
-				//If the character is being healed, draw in heal mode
-
 				//how much health bar to draw?
 				var healingHealthBar = PreAddAmount + ((CurrentEnergy - PreAddAmount) * (1f - AddEnergyTimer.Lerp));
 				var healingAlpha = ConvertToAlpha(0, MaxEnergy, healingHealthBar);
 
 				//how much pulsate to add to hp bar?
-				var pulsate = PulsateScale(AddEnergyTimer.CurrentTime * AddEnergyPulsateSpeed, AddEnergyScaleAmount, position);
+				var pulsate = PulsateScale(AddEnergyTimer.CurrentTime * AddEnergyPulsateSpeed, AddEnergyScaleAmount, Position);
 
 				//what is the alpha of the current HP?
 				var currentAlpha = ConvertToAlpha(0, MaxEnergy, CurrentEnergy);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, 1f, Vector2.One, Vector2.Zero, EmptyEnergyColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, 1f, Vector2.One, Vector2.Zero, EmptyEnergyColor);
 
 				//draw the healing part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, healingAlpha, currentAlpha, Vector2.One, Vector2.Zero, GetAddingEnergyColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, healingAlpha, currentAlpha, Vector2.One, Vector2.Zero, GetAddingEnergyColor());
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, healingAlpha, Vector2.One, Vector2.Zero, GetAddEnergyColor());
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, healingAlpha, pulsate, Vector2.Zero, GetAddEnergyColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, Vector2.One, Vector2.Zero, GetAddEnergyColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, pulsate, Vector2.Zero, GetAddEnergyColor());
 			}
 			else if (!EnergyFullClock.Paused)
 			{
 				//else if the energy is full, draw in FullEnergy mode
 
 				//how much pulsate to add to hp bar?
-				var pulsate = PulsateScale(EnergyFullClock.CurrentTime * EnergyFullPulsateSpeed, EnergyFullScaleAmount, position);
+				var pulsate = PulsateScale(EnergyFullClock.CurrentTime * EnergyFullPulsateSpeed, EnergyFullScaleAmount, Position);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, 1f, pulsate, Vector2.Zero, GetEnergyFullColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, 1f, pulsate, Vector2.Zero, GetEnergyFullColor());
 			}
 			else
 			{
@@ -239,18 +264,18 @@ namespace LifeBarBuddy
 				var currentAlpha = ConvertToAlpha(0, MaxEnergy, CurrentEnergy);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, currentAlpha, 1f, Vector2.One, Vector2.Zero, EmptyEnergyColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, Vector2.Zero, EmptyEnergyColor);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetEnergyColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetEnergyColor());
 			}
 
 			//draw the shadow if time is left
 			if (UseEnergyShadowTimer.HasTimeRemaining)
 			{
-				var scale = LerpScale(UseEnergyShadowTimer, UseEnergyShadowTargetScale, position);
+				var scale = LerpScale(UseEnergyShadowTimer, UseEnergyShadowTargetScale, Position);
 				var color = GetUseEnergyShadowColor();
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, 1f, scale, Vector2.Zero, color);
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, 1f, scale, Vector2.Zero, color);
 			}
 		}
 

@@ -89,7 +89,8 @@ namespace LifeBarBuddy
 
 		#region Methods
 
-		public LifeBar(float maxHP, ContentManager content, string borderImage, string meterImage, string alphaMaskImage)
+		public LifeBar(float maxHP, ContentManager content, string borderImage, string meterImage, string alphaMaskImage, Rectangle position) : 
+			base(position)
 		{
 			HealthClock = new GameClock();
 			HitTimer = new CountdownTimer();
@@ -98,19 +99,19 @@ namespace LifeBarBuddy
 
 			MaxHP = maxHP;
 			CurrentHP = 1f;
-			HealthColor = new List<Color> { new Color(100, 0,0), new Color(180, 0, 0) };
+			HealthColor = new List<Color> { new Color(100, 0, 0), new Color(180, 0, 0) };
 			DepletedHealthColor = new Color(0.5f, 0.5f, 0.5f);
 			HitHealthColor = new List<Color> { Color.DarkRed, Color.HotPink };
-			HitDepletedHealthColor = new List<Color> { new Color(0f,0f,0f, 0.5f), Color.Yellow };
+			HitDepletedHealthColor = new List<Color> { new Color(0f, 0f, 0f, 0.5f), Color.Yellow };
 			HitHealthColorSpeed = 5f;
 			HitHealthDepletedColorSpeed = 7f;
 			HealthColorSpeed = 0.75f;
 			HitTimeDelta = 0.8f;
 			HitShakeSpeed = 30f;
-			HitHealthScaleAmount = 0.025f;
-			HitHealthOffsetAmount = 1f;
-			HitDepletedHealthScaleAmount = 0.08f;
-			HitDepletedHealthOffsetAmount = 2f;
+			HitHealthScaleAmount = 0.06f;
+			HitHealthOffsetAmount = 3f;
+			HitDepletedHealthScaleAmount = 0.1f;
+			HitDepletedHealthOffsetAmount = 5f;
 			HealColor = new List<Color> { Color.Green, Color.LightGreen };
 			HealingColor = new List<Color> { Color.DarkGreen, Color.Green };
 			HealTimeDelta = 1f;
@@ -119,7 +120,7 @@ namespace LifeBarBuddy
 			HealColorSpeed = 5f;
 			NearDeathPercentage = .2f;
 			NearDeathColorSpeed = 10f;
-			NearDeathColors = new List<Color> { Color.Red, new Color (0.4f, 0f,0f) };
+			NearDeathColors = new List<Color> { Color.Red, new Color(0.4f, 0f, 0f) };
 
 			LoadContent(content, new Filename(borderImage), new Filename(meterImage), new Filename(alphaMaskImage));
 		}
@@ -143,6 +144,24 @@ namespace LifeBarBuddy
 			HealTimer.Update(time);
 			NearDeathClock.Update(time);
 
+			UpdateNearDeath();
+		}
+
+		public override void Update(GameClock time)
+		{
+			base.Update(time);
+
+			//update all timers
+			HealthClock.Update(time);
+			HitTimer.Update(time);
+			HealTimer.Update(time);
+			NearDeathClock.Update(time);
+
+			UpdateNearDeath();
+		}
+
+		private void UpdateNearDeath()
+		{
 			//check if we need to change "low health" mode
 			if (NearDeathClock.Paused && IsLowHealthMode)
 			{
@@ -182,11 +201,11 @@ namespace LifeBarBuddy
 			HitTimer.Start(HitTimeDelta);
 		}
 
-		public void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch, Rectangle position)
+		public void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch)
 		{
 			CurrentHP = currentHealth;
 
-			meterRenderer.DrawBorder(this, spritebatch, position, Vector2.One, Vector2.Zero, Color.White);
+			meterRenderer.DrawBorder(this, spritebatch, Position, Vector2.One, Vector2.Zero, Color.White);
 
 			if (HealTimer.HasTimeRemaining)
 			{
@@ -197,27 +216,27 @@ namespace LifeBarBuddy
 				var healingAlpha = ConvertToAlpha(0, MaxHP, healingHealthBar);
 
 				//how much pulsate to add to hp bar?
-				var pulsate = PulsateScale(HealTimer.CurrentTime * HealPulsateSpeed, HealScaleAmount, position);
+				var pulsate = PulsateScale(HealTimer.CurrentTime * HealPulsateSpeed, HealScaleAmount, Position);
 
 				//what is the alpha of the current HP?
 				var currentAlpha = ConvertToAlpha(0, MaxHP, CurrentHP);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
 
 				//draw the healing part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, healingAlpha, currentAlpha, Vector2.One, Vector2.Zero, GetHealingColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, healingAlpha, currentAlpha, Vector2.One, Vector2.Zero, GetHealingColor());
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, healingAlpha, Vector2.One, Vector2.Zero, GetHealColor());
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, healingAlpha, pulsate, Vector2.Zero, GetHealColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, Vector2.One, Vector2.Zero, GetHealColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, pulsate, Vector2.Zero, GetHealColor());
 			}
 			else if (HitTimer.HasTimeRemaining)
 			{
 				//else if the character is being hit, draw in hit mode
 
 				//how much pulsate to add to hp bar?
-				var healthPulsate = PulsateScale(HitTimer.CurrentTime * HitShakeSpeed, HitHealthScaleAmount, position);
+				var healthPulsate = PulsateScale(HitTimer.CurrentTime * HitShakeSpeed, HitHealthScaleAmount, Position);
 
 				//how much offset to add to health bar?
 				var healthOffset = OffsetVector(HitTimer.CurrentTime * HitShakeSpeed, HitHealthOffsetAmount);
@@ -229,20 +248,20 @@ namespace LifeBarBuddy
 				var damageAlpha = ConvertToAlpha(0, MaxHP, PreDamageAmount);
 
 				//how much pulsate to add to damage bar?
-				var damagePulsate = PulsateScale(HitTimer.CurrentTime * HitShakeSpeed, HitDepletedHealthScaleAmount, position);
+				var damagePulsate = PulsateScale(HitTimer.CurrentTime * HitShakeSpeed, HitDepletedHealthScaleAmount, Position);
 
 				//how much offset to add to health bar?
 				var damageOffset = OffsetVector(HitTimer.CurrentTime * HitShakeSpeed, HitDepletedHealthOffsetAmount);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, healthOffset, DepletedHealthColor);
 
 				//draw the damage bar
-				meterRenderer.DrawMeter(this, spritebatch, position, currentAlpha, damageAlpha, damagePulsate, damageOffset, GetHitDepletedHealthColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, damageAlpha, damagePulsate, damageOffset, GetHitDepletedHealthColor());
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetHitHealthColor());
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, healthPulsate, healthOffset, GetHitHealthColor());
+				//meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetHitHealthColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, healthPulsate, healthOffset, GetHitHealthColor());
 			}
 			else if (!NearDeathClock.Paused)
 			{
@@ -252,10 +271,10 @@ namespace LifeBarBuddy
 				var currentAlpha = ConvertToAlpha(0, MaxHP, CurrentHP);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetNearDeathColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetNearDeathColor());
 			}
 			else
 			{
@@ -265,10 +284,10 @@ namespace LifeBarBuddy
 				var currentAlpha = ConvertToAlpha(0, MaxHP, CurrentHP);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetHealthColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetHealthColor());
 			}
 		}
 

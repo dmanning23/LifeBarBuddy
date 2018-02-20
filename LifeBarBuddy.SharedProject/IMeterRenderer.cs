@@ -1,12 +1,15 @@
-﻿using FilenameBuddy;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LifeBarBuddy
 {
 	public interface IMeterRenderer
     {
+		/// <summary>
+		/// Use to fade all the meters in & out
+		/// </summary>
+		float Alpha { get; set; }
+
 		void SpriteBatchBegin(SpriteBatch spritebatch, Matrix translation);
 
 		/// <summary>

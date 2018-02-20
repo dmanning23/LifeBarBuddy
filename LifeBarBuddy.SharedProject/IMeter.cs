@@ -6,6 +6,8 @@ namespace LifeBarBuddy
 {
 	public interface IMeter
 	{
+		Rectangle Position { get; set; }
+
 		bool HorizontalMeter { get; set; }
 
 		Texture2D BorderImage { get; set; }
@@ -15,5 +17,7 @@ namespace LifeBarBuddy
 		Texture2D AlphaMaskImage { get; set; }
 
 		void Update(GameTime time);
+
+		void Update(GameClock time);
 	}
 }

@@ -12,6 +12,8 @@ namespace LifeBarBuddy
 	{
 		#region Properties
 
+		public Rectangle Position { get; set; }
+
 		public bool HorizontalMeter { get; set; }
 
 		public Texture2D BorderImage { get; set; }
@@ -26,13 +28,19 @@ namespace LifeBarBuddy
 
 		#region Methods
 
-		public Meter()
+		public Meter(Rectangle position)
 		{
+			Position = position;
 			HorizontalMeter = true;
 			Clock = new GameClock();
 		}
 
 		public virtual void Update(GameTime time)
+		{
+			Clock.Update(time);
+		}
+
+		public virtual void Update(GameClock time)
 		{
 			Clock.Update(time);
 		}

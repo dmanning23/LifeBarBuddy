@@ -9,6 +9,8 @@ namespace LifeBarBuddy
 	{
 		#region Properties
 
+		public float Alpha { get; set; }
+
 		/// <summary>
 		/// Shader to draw the texture, light correctly using the supplied normal map
 		/// </summary>
@@ -22,6 +24,7 @@ namespace LifeBarBuddy
 
 		public MeterRenderer(ContentManager content, string shaderFile)
 		{
+			Alpha = 255;
 			var shaderFilename = new Filename(shaderFile);
 			_meterEffect = content.Load<Effect>(shaderFilename.GetRelPathFileNoExt());
 			_effectsParams = _meterEffect.Parameters;
@@ -52,6 +55,9 @@ namespace LifeBarBuddy
 			rect.Width = (int)(rect.Width * scale.X);
 			rect.Height = (int)(rect.Height * scale.Y);
 
+			//set the color alpha before we render
+			color.A = (byte)(255f * Alpha);
+
 			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 		}
 
@@ -76,6 +82,9 @@ namespace LifeBarBuddy
 			rect.Y = (int)(scaleOffset.Y + (rect.Y + offset.Y));
 			rect.Width = (int)(rect.Width * scale.X);
 			rect.Height = (int)(rect.Height * scale.Y);
+
+			//set the color alpha before we render
+			color.A = (byte)(255f * Alpha);
 
 			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 		}

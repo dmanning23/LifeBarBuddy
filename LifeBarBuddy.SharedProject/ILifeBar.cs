@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LifeBarBuddy
 {
@@ -20,7 +18,7 @@ namespace LifeBarBuddy
 	///		- the hp bar quickly grows to the new amount
 	/// - When the hp gets to a specified "low amount", it starts flashing between two specified colors
 	/// </summary>
-    public interface ILifeBar : IMeter
+	public interface ILifeBar : IMeter
     {
 		float CurrentHP { get; set; }
 
@@ -76,6 +74,6 @@ namespace LifeBarBuddy
 
 		void Heal(float health);
 
-		void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch, Rectangle position);
+		void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch);
     }
 }
