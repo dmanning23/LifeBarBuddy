@@ -84,7 +84,8 @@ namespace LifeBarBuddy
 			rect.Height = (int)(rect.Height * scale.Y);
 
 			//set the color alpha before we render
-			color.A = (byte)(255f * Alpha);
+			var color4 = color.ToVector4();
+			color.A = (byte)(255f * (Alpha * color4.W));
 
 			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
 		}
