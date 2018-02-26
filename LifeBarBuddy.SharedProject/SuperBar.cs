@@ -202,6 +202,11 @@ namespace LifeBarBuddy
 
 		public void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch)
 		{
+			if (!IsVisible)
+			{
+				return;
+			}
+
 			CurrentEnergy = currentEnergy;
 
 			//how much offset to add to energy bar?

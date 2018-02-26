@@ -24,6 +24,8 @@ namespace LifeBarBuddy
 
 		protected GameClock Clock { get; set; }
 
+		public bool IsVisible { get; set; }
+
 		#endregion //Properties
 
 		#region Methods
@@ -33,6 +35,7 @@ namespace LifeBarBuddy
 			Position = position;
 			HorizontalMeter = true;
 			Clock = new GameClock();
+			IsVisible = true;
 		}
 
 		public virtual void Update(GameTime time)

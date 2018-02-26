@@ -6,6 +6,8 @@ namespace LifeBarBuddy
 {
 	public interface IMeter
 	{
+		bool IsVisible { get; set; }
+
 		Rectangle Position { get; set; }
 
 		bool HorizontalMeter { get; set; }

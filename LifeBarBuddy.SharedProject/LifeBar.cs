@@ -203,6 +203,11 @@ namespace LifeBarBuddy
 
 		public void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch)
 		{
+			if (!IsVisible)
+			{
+				return;
+			}
+
 			CurrentHP = currentHealth;
 
 			meterRenderer.DrawBorder(this, spritebatch, Position, Vector2.One, Vector2.Zero, Color.White);
