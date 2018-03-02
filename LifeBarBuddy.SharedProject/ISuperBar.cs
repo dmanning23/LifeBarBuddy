@@ -62,11 +62,19 @@ namespace LifeBarBuddy
 
 		float UseEnergyShakeSpeed { get; set; }
 
+		float NopeShakeSpeed { get; set; }
+
+		float NopeShakeScale { get; set; }
+
+		float NopeShakeTimeDelta { get; set; }
+
 		void Reset();
 
 		void AddEnergy(float energy);
 
 		void UseEnergy();
+
+		void Nope();
 
 		void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch);
 
