@@ -16,7 +16,7 @@ namespace LifeBarBuddy
 
 		float TimeColorSpeed { get; set; }
 
-		float NearEndPercentage { get; set; }
+		float NearEndTime { get; set; }
 
 		float NearEndColorSpeed { get; set; }
 
@@ -29,8 +29,6 @@ namespace LifeBarBuddy
 		float TimeOutShakeSpeed { get; set; }
 
 		float TimeOutShakeScale { get; set; }
-
-		float TimeOutShakeTimeDelta { get; set; }
 
 		List<Color> TimeOutColors { get; set; }
 		float TimeOutColorSpeed { get; set; }

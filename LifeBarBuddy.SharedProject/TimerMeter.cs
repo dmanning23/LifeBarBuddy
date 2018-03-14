@@ -46,7 +46,7 @@ namespace LifeBarBuddy
 		public Color DepletedTimeColor { get; set; }
 		public float TimeColorSpeed { get; set; }
 
-		public float NearEndPercentage { get; set; }
+		public float NearEndTime { get; set; }
 		public float NearEndColorSpeed { get; set; }
 		public float NearEndPulsateSpeed { get; set; }
 		public float NearEndPulsateAmount { get; set; }
@@ -55,7 +55,6 @@ namespace LifeBarBuddy
 		private float TimeOutFade { get; set; }
 		public float TimeOutShakeSpeed { get; set; }
 		public float TimeOutShakeScale { get; set; }
-		public float TimeOutShakeTimeDelta { get; set; }
 		public List<Color> TimeOutColors { get; set; }
 		public float TimeOutColorSpeed { get; set; }
 
@@ -65,7 +64,7 @@ namespace LifeBarBuddy
 		{
 			get
 			{
-				return CurrentTime <= (MaxTime * NearEndPercentage) && CurrentTime > 0;
+				return CurrentTime <= NearEndTime && CurrentTime > 0;
 			}
 		}
 
@@ -85,15 +84,14 @@ namespace LifeBarBuddy
 			DepletedTimeColor = new Color(0.8f, 0.8f, 0.8f);
 			TimeColorSpeed = 1f;
 
-			NearEndPercentage = 0.35f;
+			NearEndTime = MaxTime * 0.4f;
 			NearEndColorSpeed = 10f;
 			NearEndPulsateSpeed = 15f;
 			NearEndPulsateAmount = 0.11f;
 			NearEndColors = new List<Color> { Color.Red, new Color(0.4f, 0f, 0f), Color.HotPink };
 
-			TimeOutShakeSpeed = 30f;
-			TimeOutShakeScale = 15f;
-			TimeOutShakeTimeDelta = 1.5f;
+			TimeOutShakeSpeed = 50f;
+			TimeOutShakeScale = 8f;
 			TimeOutColors = new List<Color> { Color.Red, new Color(0.9f, 0.8f, 0f), new Color(0.4f, 0f, 0f), DepletedTimeColor };
 			TimeOutColorSpeed = 5f;
 
