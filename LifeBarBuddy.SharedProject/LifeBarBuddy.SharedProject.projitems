@@ -14,10 +14,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)IMeter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMeterRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IStockSuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITimerMeter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LifeBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuperBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MeterRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StockSuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TimerMeter.cs" />
   </ItemGroup>
 </Project>
