@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IStockSuperBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITimerMeter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LifeBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MeterWidget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuperBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MeterRenderer.cs" />

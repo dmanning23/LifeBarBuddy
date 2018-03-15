@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>LifeBarBuddy</id>
-		<version>1.0.8</version>
+		<version>1.0.10</version>
 		<title>LifeBarBuddy</title>
 		<authors>dmanning23</authors>
 		<owners>dmanning23</owners>
@@ -20,6 +20,7 @@
 				<dependency id="MonoGame.Framework.Android" version="3.6"/>
 				<dependency id="FilenameBuddy" version="1.0.2"/>
 				<dependency id="GameTimer" version="1.0"/>
+				<dependency id="MenuBuddy" version="1.0"/>
 			</group>
 
 			<!--Xamarin.iOS Unified-->
@@ -27,6 +28,7 @@
 				<dependency id="MonoGame.Framework.iOS" version="3.6"/>
 				<dependency id="FilenameBuddy" version="1.0.2"/>
 				<dependency id="GameTimer" version="1.0"/>
+				<dependency id="MenuBuddy" version="1.0"/>
 			</group>
 
 			<!--Win Universal--><!--
@@ -41,6 +43,7 @@
 				<dependency id="MonoGame.Framework.WindowsDX" version="3.6"/>
 				<dependency id="FilenameBuddy" version="1.0.2"/>
 				<dependency id="GameTimer" version="1.0"/>
+				<dependency id="MenuBuddy" version="1.0"/>
 			</group>
 
 		</dependencies>
