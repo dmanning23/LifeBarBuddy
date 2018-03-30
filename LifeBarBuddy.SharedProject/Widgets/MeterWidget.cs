@@ -40,8 +40,15 @@ namespace LifeBarBuddy
 		private void SetMeterPosition()
 		{
 			//update the meter position
-			var position = TransitionObject.Position(_screen.Transition, Rect);
-			Meter.Position = new Rectangle(position.X, position.Y, Meter.Position.Width, Meter.Position.Height);
+			if (TransitionObject.ScreenTransition != null)
+			{
+				var position = TransitionObject.Position(Rect);
+				Meter.Position = new Rectangle(position.X, position.Y, Meter.Position.Width, Meter.Position.Height);
+			}
+			else
+			{
+				Meter.IsVisible = false;
+			}
 		}
 
 		#endregion //Methods

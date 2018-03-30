@@ -9,18 +9,23 @@
     <Import_RootNamespace>LifeBarBuddy.SharedProject</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ILifeBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ISuperBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\ILifeBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\ISuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\IMeter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMeterRenderer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IStockSuperBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ITimerMeter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LifeBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MeterWidget.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SuperBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Meter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\IStockSuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\ITimerMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\LifeBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Widgets\MeterScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Widgets\MeterWidget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\SuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\Meter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MeterRenderer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StockSuperBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TimerMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\StockSuperBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\TimerMeter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Meters\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Widgets\" />
   </ItemGroup>
 </Project>
