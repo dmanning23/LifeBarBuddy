@@ -22,7 +22,7 @@ namespace LifeBarBuddy
 			_screen = screen;
 
 			Meter = meter;
-			SetMeterPosition();
+			SetMeterPosition(screen);
 		}
 
 		public MeterWidget(Shim inst) : base(inst)
@@ -34,21 +34,14 @@ namespace LifeBarBuddy
 		{
 			base.Update(screen, gameTime);
 
-			SetMeterPosition();
+			SetMeterPosition(screen);
 		}
 
-		private void SetMeterPosition()
+		private void SetMeterPosition(IScreen screen)
 		{
 			//update the meter position
-			if (TransitionObject.ScreenTransition != null)
-			{
-				var position = TransitionObject.Position(Rect);
-				Meter.Position = new Rectangle(position.X, position.Y, Meter.Position.Width, Meter.Position.Height);
-			}
-			else
-			{
-				Meter.IsVisible = false;
-			}
+			var position = TransitionObject.Position(screen, Rect);
+			Meter.Position = new Rectangle(position.X, position.Y, Meter.Position.Width, Meter.Position.Height);
 		}
 
 		#endregion //Methods
