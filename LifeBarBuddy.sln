@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		buildNugetPackages.ps1 = buildNugetPackages.ps1
 		LifeBarBuddy.nuspec = LifeBarBuddy.nuspec
-		MeterShader.fx = MeterShader.fx
+		..\languagegame\LanguageGame.SharedProject\Content\MeterShader.fx = ..\languagegame\LanguageGame.SharedProject\Content\MeterShader.fx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeBarBuddy.iOS", "LifeBarBuddy.iOS\LifeBarBuddy.iOS.csproj", "{3735890A-603F-4BB8-9039-7E7472D8FB9B}"
