@@ -29,7 +29,8 @@ float4 PixelShaderFunction(float4 position : SV_Position, float4 color : COLOR0,
 	//Look up the texture value
 	float4 tex = tex2D(TextureSampler, texCoord);
 
-	if (HasBorder)
+	//Just a heads up, if you ever get the "IF0 must have replicate swizzle error", it's because you need to have " == true" in a HLSL if statement 
+	if (HasBorder == true)
 	{
 		//If we are drawing the border, just do a pass-through
 		result = tex2D(BorderSampler, texCoord);
