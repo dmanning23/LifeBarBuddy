@@ -56,8 +56,11 @@ namespace LifeBarBuddy
 		{
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-			//display the meter
-			Meter.IsVisible = true;
+			if (!IsExiting)
+			{
+				//display the meter
+				Meter.IsVisible = true;
+			}
 		}
 
 		public override void UnloadContent()

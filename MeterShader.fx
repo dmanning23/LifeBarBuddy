@@ -34,33 +34,27 @@ float4 PixelShaderFunction(float4 position : SV_Position, float4 color : COLOR0,
 	{
 		//If we are drawing the border, just do a pass-through
 		result = tex2D(BorderSampler, texCoord);
-		if (result.a > 0.0)
-		{
-			result.a *= color.a;
-		}
+		result.a *= color.a;		
+		return result;
 	}
-	else if (tex.a > 0.0)
+
+	//Get the color from the palette swap texture
+	float4 alphaMask = tex2D(AlphaMaskSampler, texCoord);
+
+	//If the alpha value falls in the range we are looking for, return the specified color
+	[flatten] if (Start <= alphaMask.a && alphaMask.a <= End)
 	{
-		//Dont do these calculations if the alpha channel is empty
-
-		//Get the color from the palette swap texture
-		float4 alphaMask = tex2D(AlphaMaskSampler, texCoord);
-
-		//If the alpha value falls in the range we are looking for, return the specified color
-		if (Start <= alphaMask.a && alphaMask.a <= End)
-		{
-			result = tex * color;
-		}
-		else if (Start <= alphaMask.a && alphaMask.a <= (End + 0.02))
-		{
-			result = tex * color;
-			result.a *= tex.a * color.a * (1 - ((alphaMask.a - End) / ((End + 0.02) - End)));
-		}
-		else if ((Start - 0.02) <= alphaMask.a && alphaMask.a <= End)
-		{
-			result = tex * color;
-			result.a *= tex.a * color.a * (((alphaMask.a - (Start - 0.02)) / (Start - (Start - 0.02))));
-		}
+		result = tex * color;
+	}
+	else if (Start <= alphaMask.a && alphaMask.a <= (End + 0.02))
+	{
+		result = tex * color;
+		result.a *= tex.a * color.a * (1 - ((alphaMask.a - End) / ((End + 0.02) - End)));
+	}
+	else if ((Start - 0.02) <= alphaMask.a && alphaMask.a <= End)
+	{
+		result = tex * color;
+		result.a *= tex.a * color.a * (((alphaMask.a - (Start - 0.02)) / (Start - (Start - 0.02))));
 	}
 
 	return result;

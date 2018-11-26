@@ -44,6 +44,7 @@ namespace LifeBarBuddy
 		public void DrawBorder(IMeter meter, SpriteBatch spritebatch, Rectangle rect, Vector2 scale, Vector2 offset, Color color)
 		{
 			_effectsParams["BorderTexture"].SetValue(meter.BorderImage);
+			_effectsParams["AlphaMaskTexture"].SetValue(meter.AlphaMaskImage);
 			_effectsParams["HasBorder"].SetValue(true);
 
 			//update the position by adding the scale and offset
