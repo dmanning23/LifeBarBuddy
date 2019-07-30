@@ -2,6 +2,7 @@
 using MenuBuddy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System.Threading.Tasks;
 
 namespace LifeBarBuddy
 {
@@ -37,9 +38,9 @@ namespace LifeBarBuddy
 			Horiz = horiz;
 		}
 
-		public override void LoadContent()
+		public override async Task LoadContent()
 		{
-			base.LoadContent();
+			await base.LoadContent();
 
 			//create the widget to hold the meter
 			var meterShim = new MeterWidget(this, Meter)
