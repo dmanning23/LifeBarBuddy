@@ -76,7 +76,7 @@ namespace LifeBarBuddy
 
 		void Nope();
 
-		void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch);
+		void Draw(float currentEnergy, IMeterRenderer meterRenderer, SpriteBatch spritebatch, bool flip = false);
 
 	}
 }

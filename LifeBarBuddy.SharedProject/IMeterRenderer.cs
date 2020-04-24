@@ -20,7 +20,7 @@ namespace LifeBarBuddy
 		/// <param name="scale">Amount to scale the meter</param>
 		/// <param name="offset">Pixel offset to draw the meter</param>
 		/// <param name="color">The color to draw the meter.</param>
-		void DrawBorder(IMeter meter, SpriteBatch spritebatch, Rectangle rect, Vector2 scale, Vector2 offset, Color color);
+		void DrawBorder(IMeter meter, SpriteBatch spritebatch, Rectangle rect, Vector2 scale, Vector2 offset, Color color, bool flip = false);
 
 		/// <summary>
 		/// Draw the meter!
@@ -30,6 +30,6 @@ namespace LifeBarBuddy
 		/// <param name="scale">Amount to scale the meter</param>
 		/// <param name="offset">Pixel offset to draw the meter</param>
 		/// <param name="color">The color to draw the meter.</param>
-		void DrawMeter(IMeter meter, SpriteBatch spritebatch, Rectangle rect, float start, float end, Vector2 scale, Vector2 offset, Color color);
+		void DrawMeter(IMeter meter, SpriteBatch spritebatch, Rectangle rect, float start, float end, Vector2 scale, Vector2 offset, Color color, bool flip = false);
 	}
 }

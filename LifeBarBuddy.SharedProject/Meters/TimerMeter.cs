@@ -120,7 +120,7 @@ namespace LifeBarBuddy
 			TimeClock.Update(time);
 		}
 
-		public void Draw(float currentTime, IMeterRenderer meterRenderer, SpriteBatch spritebatch)
+		public void Draw(float currentTime, IMeterRenderer meterRenderer, SpriteBatch spritebatch, bool flip = false)
 		{
 			if (!IsVisible)
 			{
@@ -142,13 +142,13 @@ namespace LifeBarBuddy
 				var pulsate = PulsateScale(TimeClock.CurrentTime * NearEndPulsateSpeed, NearEndPulsateAmount, correctedPosition);
 
 				//draw the border
-				meterRenderer.DrawBorder(this, spritebatch, correctedPosition, pulsate, Vector2.Zero, Color.White);
+				meterRenderer.DrawBorder(this, spritebatch, correctedPosition, pulsate, Vector2.Zero, Color.White, flip);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, 0f, currentAlpha, pulsate, Vector2.Zero, DepletedTimeColor);
+				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, 0f, currentAlpha, pulsate, Vector2.Zero, DepletedTimeColor, flip);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, currentAlpha, 1f, pulsate, Vector2.Zero, GetNearEndTimeColor());
+				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, currentAlpha, 1f, pulsate, Vector2.Zero, GetNearEndTimeColor(), flip);
 			}
 			else if (CurrentTime <= 0f)
 			{
@@ -161,10 +161,10 @@ namespace LifeBarBuddy
 				var pulsate = PulsateScale(TimeClock.CurrentTime * NearEndPulsateSpeed, NearEndPulsateAmount * 0.5f, correctedPosition);
 
 				//draw the border
-				meterRenderer.DrawBorder(this, spritebatch, correctedPosition, Vector2.One, Vector2.Zero, Color.White);
+				meterRenderer.DrawBorder(this, spritebatch, correctedPosition, Vector2.One, Vector2.Zero, Color.White, flip);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, 0f, 1f, pulsate, Vector2.Zero, GetTimeOutColor());
+				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, 0f, 1f, pulsate, Vector2.Zero, GetTimeOutColor(), flip);
 			}
 			else
 			{
@@ -174,13 +174,13 @@ namespace LifeBarBuddy
 				var currentAlpha = ConvertToAlpha(0, MaxTime, CurrentTime);
 
 				//draw the border
-				meterRenderer.DrawBorder(this, spritebatch, correctedPosition, Vector2.One, Vector2.Zero, Color.White);
+				meterRenderer.DrawBorder(this, spritebatch, correctedPosition, Vector2.One, Vector2.Zero, Color.White, flip);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, 0f, currentAlpha, Vector2.One, Vector2.Zero, DepletedTimeColor);
+				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, 0f, currentAlpha, Vector2.One, Vector2.Zero, DepletedTimeColor, flip);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, currentAlpha, 1f, Vector2.One, Vector2.Zero, GetTimeColor());
+				meterRenderer.DrawMeter(this, spritebatch, correctedPosition, currentAlpha, 1f, Vector2.One, Vector2.Zero, GetTimeColor(), flip);
 			}
 		}
 

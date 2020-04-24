@@ -74,6 +74,6 @@ namespace LifeBarBuddy
 
 		void Heal(float health);
 
-		void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch);
+		void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch, bool flip = false);
     }
 }

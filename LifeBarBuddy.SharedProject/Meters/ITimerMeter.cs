@@ -35,6 +35,6 @@ namespace LifeBarBuddy
 
 		void Reset();
 
-		void Draw(float currentTime, IMeterRenderer meterRenderer, SpriteBatch spritebatch);
+		void Draw(float currentTime, IMeterRenderer meterRenderer, SpriteBatch spritebatch, bool flip = false);
 	}
 }

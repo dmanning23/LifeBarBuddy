@@ -9,12 +9,14 @@
     <Import_RootNamespace>LifeBarBuddy.SharedProject</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\IManaBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meters\ILifeBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meters\ISuperBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meters\IMeter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMeterRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meters\IStockSuperBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meters\ITimerMeter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Meters\ManaBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Meters\LifeBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Widgets\MeterScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Widgets\MeterWidget.cs" />
@@ -25,7 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Meters\TimerMeter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Meters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Widgets\" />
   </ItemGroup>
 </Project>

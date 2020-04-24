@@ -201,7 +201,7 @@ namespace LifeBarBuddy
 			HitTimer.Start(HitTimeDelta);
 		}
 
-		public void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch)
+		public void Draw(float currentHealth, IMeterRenderer meterRenderer, SpriteBatch spritebatch, bool flip = false)
 		{
 			if (!IsVisible)
 			{
@@ -210,7 +210,7 @@ namespace LifeBarBuddy
 
 			CurrentHP = currentHealth;
 
-			meterRenderer.DrawBorder(this, spritebatch, Position, Vector2.One, Vector2.Zero, Color.White);
+			meterRenderer.DrawBorder(this, spritebatch, Position, Vector2.One, Vector2.Zero, Color.White, flip);
 
 			if (HealTimer.HasTimeRemaining)
 			{
@@ -227,14 +227,14 @@ namespace LifeBarBuddy
 				var currentAlpha = ConvertToAlpha(0, MaxHP, CurrentHP);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor, flip);
 
 				//draw the healing part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, healingAlpha, currentAlpha, Vector2.One, Vector2.Zero, GetHealingColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, healingAlpha, currentAlpha, Vector2.One, Vector2.Zero, GetHealingColor(), flip);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, Vector2.One, Vector2.Zero, GetHealColor());
-				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, pulsate, Vector2.Zero, GetHealColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, Vector2.One, Vector2.Zero, GetHealColor(), flip);
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, healingAlpha, pulsate, Vector2.Zero, GetHealColor(), flip);
 			}
 			else if (HitTimer.HasTimeRemaining)
 			{
@@ -259,14 +259,13 @@ namespace LifeBarBuddy
 				var damageOffset = OffsetVector(HitTimer.CurrentTime * HitShakeSpeed, HitDepletedHealthOffsetAmount);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, healthOffset, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, healthOffset, DepletedHealthColor, flip);
 
 				//draw the damage bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, damageAlpha, damagePulsate, damageOffset, GetHitDepletedHealthColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, damageAlpha, damagePulsate, damageOffset, GetHitDepletedHealthColor(), flip);
 
 				//draw the health bar
-				//meterRenderer.DrawMeter(this, spritebatch, position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetHitHealthColor());
-				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, healthPulsate, healthOffset, GetHitHealthColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, healthPulsate, healthOffset, GetHitHealthColor(), flip);
 			}
 			else if (!NearDeathClock.Paused)
 			{
@@ -276,10 +275,10 @@ namespace LifeBarBuddy
 				var currentAlpha = ConvertToAlpha(0, MaxHP, CurrentHP);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor, flip);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetNearDeathColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetNearDeathColor(), flip);
 			}
 			else
 			{
@@ -289,10 +288,10 @@ namespace LifeBarBuddy
 				var currentAlpha = ConvertToAlpha(0, MaxHP, CurrentHP);
 
 				//draw the empty part of the bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor);
+				meterRenderer.DrawMeter(this, spritebatch, Position, currentAlpha, 1f, Vector2.One, Vector2.Zero, DepletedHealthColor, flip);
 
 				//draw the health bar
-				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetHealthColor());
+				meterRenderer.DrawMeter(this, spritebatch, Position, 0f, currentAlpha, Vector2.One, Vector2.Zero, GetHealthColor(), flip);
 			}
 		}
 

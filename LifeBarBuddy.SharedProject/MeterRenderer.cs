@@ -41,7 +41,7 @@ namespace LifeBarBuddy
 				translation);
 		}
 
-		public void DrawBorder(IMeter meter, SpriteBatch spritebatch, Rectangle rect, Vector2 scale, Vector2 offset, Color color)
+		public void DrawBorder(IMeter meter, SpriteBatch spritebatch, Rectangle rect, Vector2 scale, Vector2 offset, Color color, bool flip = false)
 		{
 			_effectsParams["BorderTexture"].SetValue(meter.BorderImage);
 			_effectsParams["AlphaMaskTexture"].SetValue(meter.AlphaMaskImage);
@@ -59,10 +59,10 @@ namespace LifeBarBuddy
 			//set the color alpha before we render
 			color.A = (byte)(255f * Alpha);
 
-			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 		}
 
-		public void DrawMeter(IMeter meter, SpriteBatch spritebatch, Rectangle rect, float start, float end, Vector2 scale, Vector2 offset, Color color)
+		public void DrawMeter(IMeter meter, SpriteBatch spritebatch, Rectangle rect, float start, float end, Vector2 scale, Vector2 offset, Color color, bool flip = false)
 		{
 			if (start == end)
 			{
@@ -88,7 +88,7 @@ namespace LifeBarBuddy
 			var color4 = color.ToVector4();
 			color.A = (byte)(255f * (Alpha * color4.W));
 
-			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+			spritebatch.Draw(meter.MeterImage, rect, null, color, 0f, Vector2.Zero, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 		}
 
 		#endregion //Methods
